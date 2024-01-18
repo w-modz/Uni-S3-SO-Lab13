@@ -1,4 +1,6 @@
-#define _CRT_SECURE_NO_WARNINGS
+// SO IS1 221A LAB13
+// Wiktor Modzelewski
+// mw53766@zut.edu.pl
 #include <stdio.h>
 #include <stdbool.h>
 #include <windows.h>
@@ -52,7 +54,7 @@ int getMove()
 {
     int move;
     printf("Make a move: \n");
-    scanf("%d", &move);
+    scanf_s("%d", &move, sizeof(move));
     return move - 1;
 }
 
@@ -128,6 +130,7 @@ int main(int argc, char* argv[])
     {
         sharedData->game_ended = false;
         sharedData->is_x_turn = true;
+        refreshBoard(sharedData);
     }
     // Petla do komunikacji miedzy programami
     while (true)
@@ -148,6 +151,7 @@ int main(int argc, char* argv[])
             {
                 move = getMove();
             }
+            refreshBoard(sharedData);
             sharedData->board[move] = 'x';
             if (checkWin(sharedData, 'x'))
             {
@@ -176,6 +180,7 @@ int main(int argc, char* argv[])
             {
                 move = getMove();
             }
+            refreshBoard(sharedData);
             sharedData->board[move] = 'o';
             if (checkWin(sharedData, 'o'))
             {
